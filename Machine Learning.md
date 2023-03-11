@@ -17,7 +17,13 @@ df = pd.read_csv('test.csv')
 X = df['variable 1']
 y = df['variable 2 target']
 
-#Our training set error will always be an optimistic estimate for our test set error.
+#Our training set error will always be an optimistic estimate for our test set error. Therefore we have to split our data into train data and test data:
+
+from sklearn.model_selection import train_test_split
+
+#We have to define two groups with variable X and y in each group:
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.10, random_state = 4)
 
 #Librery sklearn linear regression
 
