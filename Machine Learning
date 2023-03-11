@@ -1,4 +1,8 @@
-````python
 
-##SUPERVISED LEARNING
+
+## SUPERVISED LEARNING
+```python
+
 X = df[['TotalSF']] 
+
+```
