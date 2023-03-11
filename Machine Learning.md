@@ -3,7 +3,7 @@
 ## SUPERVISED LEARNING
 ````python
 
-print('Hello world')
+print('Hello world') 
 
 
 
