@@ -51,6 +51,27 @@ mean_absolute_error(reg.predict(X_test),y_test)
 
 np.mean(np.abs(reg.predict(X_test)-y_test)/y_test)
 
+````
+
+## K Nearest Neighbors 
+
+Alorithm based supervised marchine learning tool. It requires that the dataset has a distance.
+It can classify the data based on the k-neighbors of a given point: it analyses which are the characteristics of the closest points and uses the info to predict and classify the given point.
+'K' is obviously going to be the key factor in the analysys and it is difficullt to know hoe many neighbors are the correct: too less neighbors is very unprecise - analysys made comparing less data- and so it does many neighbors - it is difficult to classify the items-.
+
+````python
+
+#Load the librery from sklearn
+
+from sklearn.neighbors import KNeighborsRegressor
+
+#Create an instance for the model
+
+regk = KNeighborsRegressor()
+
+#Fit the data. NOT train phase in this method. It takes all the data for the analysis.
+
+regk.fit(X,y) 
 
 
 
