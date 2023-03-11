@@ -3,7 +3,7 @@
 ## SUPERVISED LEARNING
 ````python
 
-X = df[['TotalSF']] 
+print('Hello world')
 
 
-````
+
