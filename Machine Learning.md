@@ -25,6 +25,10 @@ from sklearn.model_selection import train_test_split
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.10, random_state = 4)
 
+#train_test_split params:
+  #test_size: should be between 0.0 and 1.0 and represent the proportion of the dataset to include in the test split. If None, the value is set to the  complement of the train size. If train_size is also None, it will be set to 0.25.
+  #random_state: Controls the shuffling applied to the data before applying the split
+
 #Librery sklearn linear regression
 
 from sklearn.linear_model import LinearRegression
@@ -33,11 +37,19 @@ from sklearn.linear_model import LinearRegression
 
 reg = LinearRegression()
 
-#Fit the regressor. We train the model based on actual data (train data)
+#Fit the regressor. We train the model based on actual data (train data). It is always done with train data
 
-reg.fit (X,y) #X always upper, y always lower
+reg.fit (X_train,y_train) #X always upper, y always lower
 
+#Evaluation of the model: MAE. Predict method allows us to make predictions using our model.
 
+from sklearn.metrics import mean_absolute_error
+
+mean_absolute_error(reg.predict(X_test),y_test)
+
+#for MAPE (same as MAE but in percentage):
+
+np.mean(np.abs(reg.predict(X_test)-y_test)/y_test)
 
 
 
