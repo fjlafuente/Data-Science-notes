@@ -51,6 +51,14 @@ mean_absolute_error(reg.predict(X_test),y_test)
 
 np.mean(np.abs(reg.predict(X_test)-y_test)/y_test)
 
+#RMSE: It penalizes more high values of error:
+
+from sklearn.metrics import mean_squared_error
+
+#The function does not include the square, we have to add it manually:
+
+np.sqrt(mean_squared_error(reg.predict(X_test), y_test))
+
 ````
 
 ## K Nearest Neighbors 
@@ -72,6 +80,55 @@ regk = KNeighborsRegressor()
 #Fit the data. NOT train phase in this method. It takes all the data for the analysis.
 
 regk.fit(X,y) 
+````
+## Cross Validation
+![grid_search_cross_validation](https://user-images.githubusercontent.com/116038816/224561052-6ad7bc0f-a8d3-451e-831e-07d990811464.png)
+
+"Learning the parameters of a prediction function and testing it on the same data is a methodological mistake: a model that would just repeat the labels of the samples that it has just seen would have a perfect score but would fail to predict anything useful on yet-unseen data. This situation is called overfitting".
+A good way to test the data several times is calles Cross Validation. The data is split into k pieces, k-1 of them are traindata, 1 of them is test data. K iterations are made to the data and the average of the differences are calculated afterwards.
+
+````python
+#Library
+
+from sklearn.model_selection import cross_val_score
+
+#The function would be as follows, with cv as main parameter: is the number of parts in which the data is split.
+#We have to include first the model, then the variables and then the parameters:
+cross_val_score(reg, X, y, cv = k, scoring = 'neg_mean_squared_error')
+
+#By default, the score computed at each CV iteration is the score method of the estimator. It is possible to change this by using the scoring parameter.
+#KFold can aslo be interesting
+````
+## GridSearch
+
+It is a common way to test several parameters at the same time and see which selection fits the better the model. For example, hoe many kneighbors are necessary.
+We would include a dictionary of parameters:
+
+````python
+from sklearn.model_selection import GridSearchCV
+from sklearn.neighbors import KNeighborsRegressor
+
+reg_test = GridSearchCV(KneighborsRegressor(), param_grid = {'n_neighbors': np.arange(3,50)})
+
+#FIt all the combinations of parameters possible
+
+reg_test.fit(X,y)
+
+#Best estimator and best parameters
+
+results = pd.DataFrame(reg_test.cv_results) # Transform into df a Dict with keys as column headers and values as columns, that can be imported into a pandas DataFrame.
+results.to_csv('results.csv', index = False) #we can save the results into a file.
+reg_test.best_score
+reg_test.best_estimator
+reg_test.best_params
+````
+## Decission Tree
+A decision tree is a structure that includes a root node, branches and leaf nodes. Each internal node denotes a test on an attribute, each branch denotes the outcome of a test and each leaf node holds a class label. Topmost node in the tree is the root node.
+It does not support empty values.
+It builds homogeneus partitions of data based on simple decision rules inferred from the data features.
+It splits data in 2 partitions and calculate the purity/homogeneity gain and repeat the process k times.
+Homogeneity is calculated with the variance -regression- or entropy -classification-.
+
 
 
 
